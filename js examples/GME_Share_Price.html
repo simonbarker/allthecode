@@ -1,0 +1,82 @@
+<canvas id="gmeChart" style="max-width: 800px;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.js"></script>
+
+<script>
+  const sandBoxPK = '<YOUR IEX CLOUD SANDBOX TOKEN>';
+  const url = 'https://sandbox.iexapis.com/stable/stock';
+
+  const xAxesOptions = [{
+    type: 'time',
+    time: { unit: 'day' }
+  }];
+
+  const yAxesOptions = [{
+    id: 'price',
+    type: 'linear',
+    position: 'left',
+    scaleLabel: {
+      display: true,
+      labelString: 'Share price / $',
+    },
+    ticks: {
+      callback: (value, index, values) => `$${value}`
+    },
+    gridLines: { display: false }
+  }, {
+    id: 'volume',
+    type: 'linear',
+    position: 'right',
+    scaleLabel: {
+      display: true,
+      labelString: 'Volume of shares traded in day',
+    },
+    ticks: {
+      callback: (value, index, values) => `${Math.round(value/1000000)}M`
+    },
+    gridLines: { display: false }
+  }];
+
+  axios.get(`${url}/gme/chart/2m?token=${sandBoxPK}`)
+    .then(({data}) => {
+      const price = data.map(day => {
+        return {x: new Date(day.date), y: day.close}
+      });
+      const volume = data.map(day => {
+        return {x: new Date(day.date), y: day.volume}
+      });
+      var ctx = document.getElementById('gmeChart').getContext('2d');
+      var chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            datasets: [{
+              label: 'Share Price',
+              backgroundColor: 'rgb(255, 99, 132, 0.25)',
+              borderColor: 'rgb(255, 99, 132)',
+              yAxisID: 'price',
+              data: price
+            },{
+              label: 'Volume',
+              backgroundColor: 'rgb(99, 99, 255, 0.25)',
+              borderColor: 'rgb(99, 99, 255, 0.75)',
+              yAxisID: 'volume',
+              data: volume
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'GME Share price and trade volume',
+              fontSize: 18
+            },
+            scales: {
+              xAxes: xAxesOptions,
+              yAxes: yAxesOptions
+            }
+          }
+      });
+    })
+    .catch(err => console.log(err));
+
+</script>

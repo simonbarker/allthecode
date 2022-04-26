@@ -23,15 +23,16 @@
         console.log(item);
       });
 
+      /* functions that return a new array */
+
       // sort
       // sorts array in place, array is changed!
-      family.sort((person1, person2) => {
+      const sortedFamily = family.sort((person1, person2) => {
         // return negative, positive or 0
         return person1.age - person1.age;
       });
       console.table(family);
-
-      /* functions that return a new array */
+      console.table(sortedFamily);
 
       // map
       // returns a new array, inner function must return something for each iteration

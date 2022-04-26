@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script>
+      // Higher Order Functions
+      let oranges = 3;
+      oranges = oranges + 1;
+
+      console.log("🍊 =", oranges);
+
+      function add(number, increment) {
+        return number + increment;
+      }
+      oranges = add(oranges, 5);
+
+      console.log("🍊 =", oranges);
+
+      function subtract(number, decrement) {
+        return number - decrement;
+      }
+
+      oranges = subtract(oranges, 1);
+
+      console.log("🍊 =", oranges);
+
+      // make higher order function
+      function calculateOranges(operation, number, change) {
+        const newAmount = operation(number, change);
+        console.log("🍊 =", newAmount);
+        return newAmount;
+      }
+
+      oranges = calculateOranges(subtract, oranges, 5);
+      oranges = calculateOranges(add, oranges, 5);
+
+      let apples = 10;
+
+      apples = calculateOranges(add, apples, 5);
+
+      function calculate(operation, number, change, emoji) {
+        const newAmount = operation(number, change);
+        console.log(emoji, "=", newAmount);
+        return newAmount;
+      }
+      calculate(subtract, apples, 5, "🍎");
+      calculate(add, oranges, 10, "🍊");
+    </script>
+  </head>
+  <body></body>
+</html>

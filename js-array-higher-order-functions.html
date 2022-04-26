@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script>
+      const family = [
+        { emoji: "🧒", name: "Edith", age: 8 },
+        { emoji: "🙍‍♀️", name: "Hatty", age: 37 },
+        { emoji: "👴", name: "Troy", age: 70 },
+        { emoji: "🙍‍♂️", name: "Raj", age: 35 },
+        { emoji: "👵", name: "Rena", age: 68 },
+      ];
+
+      console.table(family);
+
+      /* functions that don't return anything */
+      // forEach
+      // iterates over each item, returns undefined
+      family.forEach((item) => {
+        console.log(item);
+      });
+
+      // sort
+      // sorts array in place, array is changed!
+      family.sort((person1, person2) => {
+        // return negative, positive or 0
+        return person1.age - person1.age;
+      });
+      console.table(family);
+
+      /* functions that return a new array */
+
+      // map
+      // returns a new array, inner function must return something for each iteration
+
+      // simple array
+      const familyNames = family.map((person) => {
+        return person.name;
+      });
+      console.log(familyNames);
+
+      // object array
+      const zombieFamily = family.map((person) => {
+        if (person.name === "Troy") {
+          person.emoji = "🧟";
+          person.age = 10000;
+        }
+        return person;
+      });
+      console.table(zombieFamily);
+
+      // filter
+      // returns a new array, if nothing matches filter condition it will be an empty array
+      const filteredFamily = family.filter((person) => {
+        return person.age < 40;
+      });
+      console.table(filteredFamily);
+
+      /* functions that return a value */
+
+      // find
+      // returns the first item that matches the condition, returns undefined if nothing found
+      const found = family.find((person) => {
+        return person.name === "Troy";
+      });
+      console.log(found);
+
+      // findIndex
+      // returns index of first item that matches the condition, return -1 if nothing found
+      const foundIndex = family.findIndex((person) => {
+        return person.name === "Troy";
+      });
+      // console.log(foundIndex);
+
+      // what would you want the index?
+      family[foundIndex].emoji = "😄";
+      console.table(family);
+
+      // some
+      // returns true if it finds an item that matches the condition, false if nothing matches
+      const zombieExists = family.some((person) => {
+        return person.emoji === "🧟";
+      });
+      console.log(zombieExists);
+
+      // every
+      // returns true if all items match the condition, false if any of them don't
+      console.table(family);
+      const zombified = zombieFamily.every((person) => {
+        return person.emoji === "🧟";
+      });
+      console.log(zombified);
+    </script>
+  </head>
+  <body></body>
+</html>

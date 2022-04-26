@@ -93,6 +93,24 @@
         return person.emoji === "🧟";
       });
       console.log(zombified);
+
+      /* function that return whatever you like ... sort of */
+      const totalAge = family.reduce((acc, person) => {
+        return (acc += person.age);
+      }, 0);
+      console.log(totalAge);
+
+      const namesString = family.reduce((acc, person) => {
+        return (acc += person.name + ", ");
+      }, "");
+      console.log(namesString);
+
+      // reduceRight
+      // same as above but starts at the end and goes backwards
+      const namesStringRev = family.reduceRight((acc, person) => {
+        return (acc += person.name + ", ");
+      }, "");
+      console.log(namesStringRev);
     </script>
   </head>
   <body></body>
